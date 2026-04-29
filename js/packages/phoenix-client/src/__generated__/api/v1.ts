@@ -72,12 +72,20 @@ export interface paths {
         put?: never;
         post?: never;
         /**
-         * Delete every span annotation in a project that matches the given (name, identifier) selector.
-         * @description Hard-delete all span annotations within the named project whose
-         *             `name` and `identifier` match the supplied query parameters.
+         * Delete every span annotation in a project that matches the given identifier (and optionally name) selector.
+         * @description Hard-delete span annotations within the named project that match the
+         *             supplied selector.
          *
-         *             - The `name` and `identifier` query parameters are both required and
-         *               must be non-empty.
+         *             - `identifier` is **required** and must be non-empty. Empty
+         *               identifiers are rejected to prevent accidental mass-delete of the
+         *               pre-identifier / default-identifier bucket.
+         *             - `name` is **optional**. When present it must be non-empty and the
+         *               delete narrows to annotations of that name. When omitted, every
+         *               span annotation in the project matching `identifier` is deleted
+         *               regardless of name (including span notes, which use the reserved
+         *               name `"note"`) — useful for callers that tag a batch of
+         *               annotations with a single rollback identifier and want to clear
+         *               the whole batch in one call.
          *             - The endpoint is idempotent: a request that matches no rows still
          *               returns 204.
          *             - When authentication is enabled, non-admin callers can only delete
@@ -102,12 +110,18 @@ export interface paths {
         put?: never;
         post?: never;
         /**
-         * Delete every trace annotation in a project that matches the given (name, identifier) selector.
-         * @description Hard-delete all trace annotations within the named project whose
-         *             `name` and `identifier` match the supplied query parameters.
+         * Delete every trace annotation in a project that matches the given identifier (and optionally name) selector.
+         * @description Hard-delete trace annotations within the named project that match the
+         *             supplied selector.
          *
-         *             - The `name` and `identifier` query parameters are both required and
-         *               must be non-empty.
+         *             - `identifier` is **required** and must be non-empty. Empty
+         *               identifiers are rejected to prevent accidental mass-delete of the
+         *               pre-identifier / default-identifier bucket.
+         *             - `name` is **optional**. When present it must be non-empty and the
+         *               delete narrows to annotations of that name. When omitted, every
+         *               trace annotation in the project matching `identifier` is deleted
+         *               regardless of name (including trace notes, which use the reserved
+         *               name `"note"`).
          *             - The endpoint is idempotent: a request that matches no rows still
          *               returns 204.
          *             - When authentication is enabled, non-admin callers can only delete
@@ -132,12 +146,18 @@ export interface paths {
         put?: never;
         post?: never;
         /**
-         * Delete every session annotation in a project that matches the given (name, identifier) selector.
-         * @description Hard-delete all session annotations within the named project whose
-         *             `name` and `identifier` match the supplied query parameters.
+         * Delete every session annotation in a project that matches the given identifier (and optionally name) selector.
+         * @description Hard-delete session annotations within the named project that match
+         *             the supplied selector.
          *
-         *             - The `name` and `identifier` query parameters are both required and
-         *               must be non-empty.
+         *             - `identifier` is **required** and must be non-empty. Empty
+         *               identifiers are rejected to prevent accidental mass-delete of the
+         *               pre-identifier / default-identifier bucket.
+         *             - `name` is **optional**. When present it must be non-empty and the
+         *               delete narrows to annotations of that name. When omitted, every
+         *               session annotation in the project matching `identifier` is deleted
+         *               regardless of name (including session notes, which use the
+         *               reserved name `"note"`).
          *             - The endpoint is idempotent: a request that matches no rows still
          *               returns 204.
          *             - When authentication is enabled, non-admin callers can only delete
@@ -3931,10 +3951,10 @@ export interface operations {
     deleteSpanAnnotationsByIdentifier: {
         parameters: {
             query: {
-                /** @description The annotation name. Required and non-empty. */
-                name: string;
-                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the default identifier bucket. */
+                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the pre-identifier / default-identifier bucket. */
                 identifier: string;
+                /** @description The annotation name. Optional. When omitted, every annotation matching `identifier` in the project is deleted regardless of name (including notes). When present, must be non-empty and narrows the delete to annotations of that name. */
+                name?: string | null;
             };
             header?: never;
             path: {
@@ -4045,10 +4065,10 @@ export interface operations {
     deleteTraceAnnotationsByIdentifier: {
         parameters: {
             query: {
-                /** @description The annotation name. Required and non-empty. */
-                name: string;
-                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the default identifier bucket. */
+                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the pre-identifier / default-identifier bucket. */
                 identifier: string;
+                /** @description The annotation name. Optional. When omitted, every annotation matching `identifier` in the project is deleted regardless of name (including notes). When present, must be non-empty and narrows the delete to annotations of that name. */
+                name?: string | null;
             };
             header?: never;
             path: {
@@ -4159,10 +4179,10 @@ export interface operations {
     deleteSessionAnnotationsByIdentifier: {
         parameters: {
             query: {
-                /** @description The annotation name. Required and non-empty. */
-                name: string;
-                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the default identifier bucket. */
+                /** @description The annotation identifier. Required and non-empty. Empty identifiers are rejected to prevent accidental mass-delete of the pre-identifier / default-identifier bucket. */
                 identifier: string;
+                /** @description The annotation name. Optional. When omitted, every annotation matching `identifier` in the project is deleted regardless of name (including notes). When present, must be non-empty and narrows the delete to annotations of that name. */
+                name?: string | null;
             };
             header?: never;
             path: {

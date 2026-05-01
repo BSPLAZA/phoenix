@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-client-v2.6.0...arize-phoenix-client-v2.7.0) (2026-05-01)
+
+
+### Features
+
+* **phoenix-client:** add TS trace annotations + clarify note semantics + skills audit ([#12923](https://github.com/Arize-ai/phoenix/issues/12923)) ([2993b04](https://github.com/Arize-ai/phoenix/commit/2993b04a30554a752322b44a677721ae9ded91cc))
+
 ## [2.6.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-client-v2.5.0...arize-phoenix-client-v2.6.0) (2026-04-29)
 
 

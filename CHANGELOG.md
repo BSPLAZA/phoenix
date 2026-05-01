@@ -1,5 +1,18 @@
 # Changelog
 
+## [15.2.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-v15.1.0...arize-phoenix-v15.2.0) (2026-05-01)
+
+
+### Features
+
+* enhance filter condition filter ([#12938](https://github.com/Arize-ai/phoenix/issues/12938)) ([b92bfbc](https://github.com/Arize-ai/phoenix/commit/b92bfbc21144cd30a28bb2fa07ebd9d2201e7676))
+
+
+### Bug Fixes
+
+* **cost:** update built-in model token prices ([#12960](https://github.com/Arize-ai/phoenix/issues/12960)) ([746247c](https://github.com/Arize-ai/phoenix/commit/746247cbb07b0dc7803b87c69dd8c77811c33f59))
+* **ui:** remove redundant Ask PXI button from trace details drawer ([#12957](https://github.com/Arize-ai/phoenix/issues/12957)) ([863e9ca](https://github.com/Arize-ai/phoenix/commit/863e9ca3cabc99b84b848d6fc6b09114cf8aee48))
+
 ## [15.1.0](https://github.com/Arize-ai/phoenix/compare/arize-phoenix-v15.0.0...arize-phoenix-v15.1.0) (2026-04-30)
 
 
